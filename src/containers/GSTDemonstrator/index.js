@@ -1,89 +1,65 @@
-import React, { useState, useEffect } from 'react'
-import { PieChart } from "react-minimal-pie-chart"
+import React, { useState, useEffect } from "react";
+import { PieChart } from "react-minimal-pie-chart";
 
 function GSTDemonstrator() {
-
   const defaultLabelStyle = {
     fontSize: "10px",
     fontFamily: "sans-serif",
   };
 
-  const [items, setItems] = useState([]);
-  const [data, setData] = useState({ name: "", price: "", gstSlab: "1", gstPrice: "" });
+  const [items, setItems] = useState([
+    { name: "ball", price: "100", gstSlab: "5", gstPrice: 105 },
+    { name: "pen", price: "100", gstSlab: "5", gstPrice: 105 },
+    { name: "bat", price: "100", gstSlab: "28", gstPrice: 128 },
+  ]);
+  const [data, setData] = useState({
+    name: "",
+    price: "",
+    gstSlab: "1",
+    gstPrice: "",
+  });
   const [gst5, setGst5] = useState(0);
   const [gst12, setGst12] = useState(0);
   const [gst18, setGst18] = useState(0);
   const [gst28, setGst28] = useState(0);
 
-  // useEffect(() => {
-  //   console.log("useEffect")
-  //   {
-  //     items.map((item) => {
-  //       if (item.gstSlab == 5) {
-  //         setGst5(gst5 + 1)
-  //       }
-  //       else if (item.gstSlab == 12) {
-  //         setGst12(gst12 + 1)
-  //       }
-  //       else if (item.gstSlab == 18) {
-  //         setGst18(gst18 + 1)
-  //       }
-  //       else if (item.gstSlab == 28) {
-  //         setGst28(gst28 + 1)
-  //       }
-  //     })
-  //   }
-  // }, [items]);
+  useEffect(() => {
+    console.log("useEffect");
+    setGst5(items.filter((obj) => obj.gstSlab === "5").length);
+    setGst12(items.filter((obj) => obj.gstSlab === "12").length);
+    setGst18(items.filter((obj) => obj.gstSlab === "18").length);
+    setGst28(items.filter((obj) => obj.gstSlab === "28").length);
+  }, [items]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData(
-      (prevState) => ({ ...prevState, [name]: value })
-    );
-  }
+    setData((prevState) => ({ ...prevState, [name]: value }));
+  };
 
   const onSubmit = (e) => {
-
     var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
+      method: "GET",
+      redirect: "follow",
     };
 
     // Using fetch to make API call.
-    fetch(`http://api.mathjs.org/v4/?expr=${data.price}*${data.gstSlab}/100`, requestOptions)
-      .then(response => response.text())
-      .then(result => {
-        console.log(result)
-        setData((prevState) => ({ ...prevState, ["gstPrice"]: data.price+result }));
+    fetch(
+      `http://api.mathjs.org/v4/?expr=${data.price}%2A${data.gstSlab}%2F100`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        setItems((prevState) => [
+          ...prevState,
+          { ...data, gstPrice: parseInt(data.price) + parseInt(result) },
+        ]);
       })
-      .catch(error => console.log('error', error));
-    console.log("Data")
-    console.log(data)
-    setItems((prevState) => [...prevState, data]);
+      .catch((error) => console.log("error", error));
     setData({ name: "", price: "", gstSlab: "", gstPrice: "" });
-    console.log("Items")
-    console.log(items)
 
-  }
-
-  // const Form = ({ data }) => (
-  //   <div>
-  //     <h2>Add a New Item</h2>
-  //     <div className="form-group mb-2">
-  //       <form onSubmit={onSubmit}>
-  //         <input type="string" value={data.name} name="name" placeholder="Enter Item Name" onChange={handleChange} />
-  //         <input type="number" value={data.price} name="price" placeholder="Enter Item Price" onChange={handleChange} />
-  //         <select value={data.gstSlab} name="gstSlab" onChange={handleChange}>
-  //           <option>5</option>
-  //           <option>12</option>
-  //           <option>18</option>
-  //           <option>28</option>
-  //         </select>
-  //         <button type="submit" className="btn btn-success mb-2">Add Item</button>
-  //       </form>
-  //     </div>
-  //   </div>
-  // )
+    console.log(items);
+  };
 
   const columns = [
     { heading: "Name", property: "name" },
@@ -120,19 +96,37 @@ function GSTDemonstrator() {
       <h2>Add a New Item</h2>
       <div className="form-group mb-2">
         {/* <form onSubmit={onSubmit}> */}
-          <input type="string" value={data.name} name="name" placeholder="Enter Item Name" onChange={handleChange} />
-          <input type="number" value={data.price} name="price" placeholder="Enter Item Price" onChange={handleChange} />
-          <select value={data.gstSlab} name="gstSlab" onChange={handleChange}>
+        <input
+          type="string"
+          value={data.name}
+          name="name"
+          placeholder="Enter Item Name"
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          value={data.price}
+          name="price"
+          placeholder="Enter Item Price"
+          onChange={handleChange}
+        />
+        <select value={data.gstSlab} name="gstSlab" onChange={handleChange}>
           <option>NA</option>
-            <option value={5}>5</option>
-            <option value={12}>12</option>
-            <option value={18}>18</option>
-            <option value={28}>28</option>
-          </select>
-          <button type="submit" onClick={onSubmit} className="btn btn-success mb-2">Add Item</button>
+          <option value={5}>5</option>
+          <option value={12}>12</option>
+          <option value={18}>18</option>
+          <option value={28}>28</option>
+        </select>
+        <button
+          type="submit"
+          variant="primary"
+          onClick={onSubmit}
+          className="btn btn-success mb-2"
+        >
+          Add Item
+        </button>
         {/* </form> */}
       </div>
-
 
       <Table columns={columns} data={items} />
 
@@ -149,14 +143,14 @@ function GSTDemonstrator() {
           radius={PieChart.defaultProps.radius - 6}
           segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
           animate
-          label={({ dataEntry }) => dataEntry.value}
+          // label={({ dataEntry }) => dataEntry.value}
           labelStyle={{
             ...defaultLabelStyle,
           }}
         />
       </div>
     </div>
-  )
+  );
 }
 
 export default GSTDemonstrator;
