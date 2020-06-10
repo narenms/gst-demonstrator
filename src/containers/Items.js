@@ -8,7 +8,9 @@ function Items() {
     { name: "Bat", price: "20", gstSlab: "5", finalPrice: "21" }
   ])
 
-  const [newItem, setNewItem] = useState({ name: "", price: "", gstSlab: "", finalPrice: "" })
+  // const newItem = { name: "", price: "", gstSlab: "", finalPrice: "" };
+
+  const [newItem, setNewItem] = useState({ name: "", price: "0", gstSlab: "0", finalPrice: "" })
   const [tempItem, setTempItem] = useState({ name: "", price: "", gstSlab: "", finalPrice: "" })
   // const [name, setName] = useState("")
   // const [price, setPrice] = useState("")
@@ -21,22 +23,23 @@ function Items() {
     if (isInitialMount.current) {
       console.log("useEffect DidMount")
       isInitialMount.current = false
-    } 
+    }
     else {
       console.log("useEffect Update")
       axios.get(`http://api.mathjs.org/v4/?expr=${newItem.price}*${newItem.gstSlab}/100`)
         .then(res => {
           console.log(res.data)
           setNewItem(newItem.finalPrice = newItem.price + res.data)
-          setItems(...items, newItem)
+          setItems(...items, ...newItem)
         })
     }
-
   }, [newItem])
 
   const handleClick = () => {
+    console.log(tempItem)
     setNewItem(tempItem)
     console.log(newItem)
+    // setItems(...items, newItem)
   }
 
 
