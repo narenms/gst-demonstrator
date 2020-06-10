@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 
 function GSTDemonstrator() {
-  const defaultLabelStyle = {
-    fontSize: "10px",
-    fontFamily: "sans-serif",
-  };
-
   const [items, setItems] = useState([
     {
       name: "Pen",
@@ -107,6 +102,11 @@ function GSTDemonstrator() {
     </table>
   );
 
+  const defaultLabelStyle = {
+    fontSize: "10px",
+    fontFamily: "sans-serif",
+  };
+
   return (
     <div className="container">
       <h1>GST Demonstrator</h1>
@@ -149,10 +149,10 @@ function GSTDemonstrator() {
       <div className="w-50 h-50">
         <PieChart
           data={[
-            { title: "5%", value: gst5, color: "#DAF7A6 " },
-            { title: "12%", value: gst12, color: "#FFC300 " },
-            { title: "18%", value: gst18, color: "#FF5733" },
-            { title: "28%", value: gst28, color: "#C70039" },
+            { title: "5%", value: gst5, color: "#f38181" },
+            { title: "12%", value: gst12, color: "#fce38a" },
+            { title: "18%", value: gst18, color: "#eaffd0" },
+            { title: "28%", value: gst28, color: "#95e1d3" },
           ]}
           style={{ height: "200px" }}
           radius={PieChart.defaultProps.radius - 6}
