@@ -7,7 +7,26 @@ function GSTDemonstrator() {
     fontFamily: "sans-serif",
   };
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    {
+      name: "Pen",
+      price: "200",
+      gstSlab: "5",
+      gstPrice: "210",
+    },
+    {
+      name: "Pencil",
+      price: "200",
+      gstSlab: "12",
+      gstPrice: "224",
+    },
+    {
+      name: "Eraser",
+      price: "200",
+      gstSlab: "5",
+      gstPrice: "210",
+    },
+  ]);
   const [data, setData] = useState({
     name: "",
     price: "",
@@ -19,18 +38,17 @@ function GSTDemonstrator() {
   const [gst18, setGst18] = useState(0);
   const [gst28, setGst28] = useState(0);
 
+  useEffect(() => {
+    console.log("Calculating Pie Chart data.");
+    setGst5(items.filter(({ gstSlab }) => gstSlab === "5").length);
+    setGst12(items.filter(({ gstSlab }) => gstSlab === "12").length);
+    setGst18(items.filter(({ gstSlab }) => gstSlab === "18").length);
+    setGst28(items.filter(({ gstSlab }) => gstSlab === "28").length);
+  }, [items]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevState) => ({ ...prevState, [name]: value }));
-    if (name === "gstSlab" && value === "5") {
-      setGst5(gst5 + 1);
-    } else if (name === "gstSlab" && value === "12") {
-      setGst12(gst12 + 1);
-    } else if (name === "gstSlab" && value === "18") {
-      setGst18(gst18 + 1);
-    } else if (name === "gstSlab" && value === "28") {
-      setGst28(gst28 + 1);
-    }
   };
 
   const onSubmit = (e) => {
