@@ -44,7 +44,7 @@ function GSTDemonstrator() {
 
     // Using fetch to make API call.
     fetch(
-      `http://api.mathjs.org/v4/?expr=${data.price}%2A${data.gstSlab}%2F100`,
+      `https://api.mathjs.org/v4/?expr=${data.price}%2A${data.gstSlab}%2F100`,
       requestOptions
     )
       .then((response) => response.text())
