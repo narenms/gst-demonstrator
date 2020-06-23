@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import GSTDemonstrator from './containers/GSTDemonstrator'
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
     //   </a>
     //   </header>
     // </div>
-    <GSTDemonstrator />
+    <Router>
+      <GSTDemonstrator />
+    </Router>
   );
 }
 

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Home from './Home';
+import AddItem from "./AddItem";
+import DisplayItems from './DisplayItems';
 
 function GSTDemonstrator() {
   const defaultLabelStyle = {
@@ -18,18 +22,18 @@ function GSTDemonstrator() {
     gstSlab: "1",
     gstPrice: "",
   });
-  const [gst5, setGst5] = useState(0);
-  const [gst12, setGst12] = useState(0);
-  const [gst18, setGst18] = useState(0);
-  const [gst28, setGst28] = useState(0);
+  // const [gst5, setGst5] = useState(0);
+  // const [gst12, setGst12] = useState(0);
+  // const [gst18, setGst18] = useState(0);
+  // const [gst28, setGst28] = useState(0);
 
-  useEffect(() => {
-    console.log("useEffect");
-    setGst5(items.filter((obj) => obj.gstSlab === "5").length);
-    setGst12(items.filter((obj) => obj.gstSlab === "12").length);
-    setGst18(items.filter((obj) => obj.gstSlab === "18").length);
-    setGst28(items.filter((obj) => obj.gstSlab === "28").length);
-  }, [items]);
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   setGst5(items.filter((obj) => obj.gstSlab === "5").length);
+  //   setGst12(items.filter((obj) => obj.gstSlab === "12").length);
+  //   setGst18(items.filter((obj) => obj.gstSlab === "18").length);
+  //   setGst28(items.filter((obj) => obj.gstSlab === "28").length);
+  // }, [items]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,66 +94,92 @@ function GSTDemonstrator() {
   );
 
   return (
-    <div className="container">
-      <h1>GST Demonstrator</h1>
+    <>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link to="/" className="navbar-brand">
+          GST-Demonstrator
+        </Link>
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to="/additem" className="nav-link">
+              Add Item
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/displayitem" className="nav-link">
+              Display Item
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
-      <h2>Add a New Item</h2>
-      <div className="form-group mb-2">
-        {/* <form onSubmit={onSubmit}> */}
-        <input
-          type="string"
-          value={data.name}
-          name="name"
-          placeholder="Enter Item Name"
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          value={data.price}
-          name="price"
-          placeholder="Enter Item Price"
-          onChange={handleChange}
-        />
-        <select value={data.gstSlab} name="gstSlab" onChange={handleChange}>
-          <option>NA</option>
-          <option value={5}>5</option>
-          <option value={12}>12</option>
-          <option value={18}>18</option>
-          <option value={28}>28</option>
-        </select>
-        <button
-          type="submit"
-          variant="primary"
-          onClick={onSubmit}
-          className="btn btn-success mb-2"
-        >
-          Add Item
-        </button>
-        {/* </form> */}
+      <div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/additem" component={AddItem} />
+          <Route path="/displayitem" component={DisplayItems} />
+        </Switch>
       </div>
+      {console.log("Index")}
+      {/* <div className="container"> */}
+        {/* <h1>GST Demonstrator</h1> */}
 
-      <Table columns={columns} data={items} />
+        {/* <h2>Add a New Item</h2>
+        <div className="form-group mb-2">
+          <input
+            type="string"
+            value={data.name}
+            name="name"
+            placeholder="Enter Item Name"
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            value={data.price}
+            name="price"
+            placeholder="Enter Item Price"
+            onChange={handleChange}
+          />
+          <select value={data.gstSlab} name="gstSlab" onChange={handleChange}>
+            <option>NA</option>
+            <option value={5}>5</option>
+            <option value={12}>12</option>
+            <option value={18}>18</option>
+            <option value={28}>28</option>
+          </select>
+          <button
+            type="submit"
+            variant="primary"
+            onClick={onSubmit}
+            className="btn btn-success mb-2"
+          >
+            Add Item
+          </button>
+        </div> */}
 
-      <h2>Pie Chart</h2>
-      <div className="w-50 h-50">
-        <PieChart
-          data={[
-            { title: "5%", value: gst5, color: "#DAF7A6 " },
-            { title: "12%", value: gst12, color: "#FFC300 " },
-            { title: "18%", value: gst18, color: "#FF5733" },
-            { title: "28%", value: gst28, color: "#C70039" },
-          ]}
-          style={{ height: "200px" }}
-          radius={PieChart.defaultProps.radius - 6}
-          segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
-          animate
-          // label={({ dataEntry }) => dataEntry.value}
-          labelStyle={{
-            ...defaultLabelStyle,
-          }}
-        />
-      </div>
-    </div>
+        {/* <Table columns={columns} data={items} /> */}
+
+        {/* <h2>Pie Chart</h2>
+        <div className="w-50 h-50">
+          <PieChart
+            data={[
+              { title: "5%", value: gst5, color: "#DAF7A6 " },
+              { title: "12%", value: gst12, color: "#FFC300 " },
+              { title: "18%", value: gst18, color: "#FF5733" },
+              { title: "28%", value: gst28, color: "#C70039" },
+            ]}
+            style={{ height: "200px" }}
+            radius={PieChart.defaultProps.radius - 6}
+            segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
+            animate
+            label={({ dataEntry }) => dataEntry.value}
+            labelStyle={{
+              ...defaultLabelStyle,
+            }}
+          />
+        </div> */}
+      {/* </div> */}
+    </>
   );
 }
 
