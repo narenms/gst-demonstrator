@@ -37,10 +37,8 @@ function DisplayItems() {
     <div className="container">
       <div className="d-flex justify-content-center">
         <div className="d-flex align-items-start flex-column">
-          <p className="text-center">
-            <h2>List of Items</h2> <br />
-            <Table columns={columns} data={item} />
-          </p>
+          <h2>List of Items</h2> <br />
+          <Table columns={columns} data={item} />
         </div>
       </div>
     </div>

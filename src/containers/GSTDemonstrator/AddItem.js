@@ -14,7 +14,7 @@ function AddItem() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prevState) => ({ ...prevState, [name]: value }));
+    setData({ [name]: value });
   };
 
   const onSubmit = (e) => {
