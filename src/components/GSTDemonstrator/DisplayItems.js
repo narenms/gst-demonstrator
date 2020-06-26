@@ -1,9 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectItem } from "./itemSlice";
 
 function DisplayItems() {
-  const item = useSelector(selectItem);
+  const item = useSelector(state => state.items);
 
   const columns = [
     { heading: "Name", property: "name" },

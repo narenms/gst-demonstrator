@@ -1,23 +1,22 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addNewItem, addNewItemAsync, selectItem } from "./itemSlice";
+import { useDispatch } from "react-redux";
+import {addItem} from '../../actions'
 
 function AddItem() {
-  const item = useSelector(selectItem);
   const dispatch = useDispatch();
   const [data, setData] = useState({
     name: "",
     price: "",
-    gstSlab: "",
+    gstSlab: "5",
     gstPrice: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData({ [name]: value });
+    setData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
@@ -31,14 +30,13 @@ function AddItem() {
       .then((response) => response.text())
       .then((result) => {
         console.log(result);
-        setData((prevState) => [
-          ...prevState,
-          { ...data, gstPrice: parseInt(data.price) + parseInt(result) },
-        ]);
+        setData({ ...data, gstPrice: parseInt(data.price) + parseInt(result) },);
       })
       .catch((error) => console.log("error", error));
-    dispatch(addNewItem(data));
+    dispatch(addItem(data));
     setData({ name: "", price: "", gstSlab: "", gstPrice: "" });
+    
+    e.preventDefault();
   };
 
   return (
@@ -55,6 +53,7 @@ function AddItem() {
                 type="string"
                 className="form-control"
                 id="inputItemName"
+                name="name"
                 placeholder="Name"
                 value={data.name}
                 onChange={handleChange}
@@ -66,6 +65,7 @@ function AddItem() {
                 type="number"
                 className="form-control"
                 id="inputItemPrice"
+                name="price"
                 placeholder="Price"
                 value={data.price}
                 onChange={handleChange}
@@ -77,6 +77,7 @@ function AddItem() {
             <select
               className="form-control"
               id="gstSlabControlSelect"
+              name="gstSlab"
               value={data.gstSlab}
               onChange={handleChange}
             >
