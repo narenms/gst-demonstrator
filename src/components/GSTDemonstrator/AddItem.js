@@ -5,34 +5,6 @@ import { addNewItem, selectItem } from "./itemSlice";
 function AddItem() {
   const dispatch = useDispatch();
 
-  const item = useSelector(selectItem);
-  const columns = [
-    { heading: "Name", property: "name" },
-    { heading: "Price", property: "price" },
-    { heading: "GST Slab", property: "gstSlab" },
-    { heading: "GST Price", property: "gstPrice" },
-  ];
-  const Table = ({ columns, data }) => (
-    <table className="table">
-      <thead>
-        <tr>
-          {columns.map((col, id) => (
-            <th key={id}>{col.heading}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, id) => (
-          <tr key={id}>
-            {columns.map((col) => (
-              <td key={`${item}-${col.property}`}>{item[col.property]}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
   const [data, setData] = useState({
     name: "",
     price: "",
@@ -63,9 +35,11 @@ function AddItem() {
         console.log(data);
         console.log("Calling dispatch");
         dispatch(addNewItem(data));
+        setData({ name: "", price: "", gstSlab: "5", gstPrice: "" });
       })
       .catch((error) => console.log("error", error));
-    setData({ name: "", price: "", gstSlab: "5", gstPrice: "" });
+
+    console.log(data);
 
     e.preventDefault();
   };
@@ -73,7 +47,7 @@ function AddItem() {
   return (
     <div>
       <div className="d-flex justify-content-center">
-        {/* <form> */}
+        <form>
         <div className="form-row">
           <h2>Add a New Item</h2>
         </div>
@@ -121,9 +95,7 @@ function AddItem() {
         <button type="submit" className="btn btn-primary" onClick={onSubmit}>
           Add Item
         </button>
-        {/* </form> */}
-
-        <Table columns={columns} data={item} />
+        </form>
       </div>
     </div>
   );
