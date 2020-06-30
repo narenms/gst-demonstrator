@@ -3,6 +3,7 @@ import { PieChart } from "react-minimal-pie-chart";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import AddItem from "./AddItem";
 import DisplayItems from './DisplayItems';
+import Home from './Home';
 
 function GSTDemonstrator() {
   return (
@@ -28,24 +29,13 @@ function GSTDemonstrator() {
       <div>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/additem" exact component={AddItem} />
+          <Route path="/additem" component={AddItem} />
           {/* <Route path="/additem:" component={AddItem} /> */}
           <Route path="/displayitem" component={DisplayItems} />
         </Switch>
       </div>
-      {console.log("Index")}
+      {/* {console.log("Index")} */}
     </>
-  );
-}
-
-const Home = () => {
-  return (
-    <div className="d-flex justify-content-center">
-      <div className="d-flex align-items-start flex-column">
-        <h2>GST Demonstrator - Home</h2>
-        <h4>Welcome!!</h4>
-      </div>
-    </div>
   );
 }
 

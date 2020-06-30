@@ -1,8 +1,10 @@
 import React from "react";
+import { PieChart } from "react-minimal-pie-chart";
 import { useSelector } from "react-redux";
+import { selectItem } from "./itemSlice";
 
 function DisplayItems() {
-  const item = useSelector(state => state.items);
+  const item = useSelector(selectItem);
 
   const columns = [
     { heading: "Name", property: "name" },
