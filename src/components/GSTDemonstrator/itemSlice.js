@@ -13,10 +13,14 @@ export const itemSlice = createSlice({
       // immutable state based off those changes
       state.value = [...state.value, action.payload];
     },
+
+    deleteItem: (state, action) => {
+      state.value = state.value.filter(obj => obj.name !== action.payload)
+    }
   },
 });
 
-export const { addNewItem } = itemSlice.actions;
+export const { addNewItem, deleteItem } = itemSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
