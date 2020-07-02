@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { PieChart } from "react-minimal-pie-chart";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import React from "react";
+import { Route, Switch, Link } from "react-router-dom";
 import AddItem from "./AddItem";
-import DisplayItems from './DisplayItems';
-import Home from './Home';
-import DeleteItem from './DeleteItem';
+import DisplayItems from "./DisplayItems";
+import Home from "./Home";
+import DeleteItem from "./DeleteItem";
+import { Container, Row, Col, Media } from "react-bootstrap";
 
 function GSTDemonstrator() {
   return (
@@ -36,11 +36,11 @@ function GSTDemonstrator() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/additem" component={AddItem} />
-          {/* <Route path="/additem:" component={AddItem} /> */}
           <Route path="/displayitem" component={DisplayItems} />
           <Route path="/deleteitem" component={DeleteItem} />
         </Switch>
       </div>
+
       {/* {console.log("Index")} */}
     </>
   );

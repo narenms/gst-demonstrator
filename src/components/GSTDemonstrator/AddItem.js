@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addNewItem, selectItem } from "./itemSlice";
+import { useDispatch} from "react-redux";
+import { addNewItem } from "./itemSlice";
 
 function AddItem() {
   const dispatch = useDispatch();
@@ -31,10 +31,10 @@ function AddItem() {
       .then((response) => response.text())
       .then((result) => {
         console.log(result);
-        setData({ ...data, gstPrice: parseInt(data.price) + parseInt(result) });
+        // setData({ ...data, gstPrice: parseInt(data.price) + parseInt(result) });
         console.log(data);
         console.log("Calling dispatch");
-        dispatch(addNewItem(data));
+        dispatch(addNewItem({ ...data, gstPrice: parseInt(data.price) + parseInt(result) }));
         setData({ name: "", price: "", gstSlab: "5", gstPrice: "" });
       })
       .catch((error) => console.log("error", error));
