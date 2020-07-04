@@ -24,7 +24,7 @@ function DisplayItems() {
   ];
 
   const Table = ({ columns, data }) => (
-    <table className="table">
+    <table className="table table-bordered">
       <thead>
         <tr>
           {columns.map((col, id) => (
@@ -45,14 +45,13 @@ function DisplayItems() {
   );
 
   return (
-    <div className="container">
-      <div className="d-flex justify-content-center">
-        <div className="d-flex align-items-start flex-column">
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-sm-6">
           <h2>List of Items</h2> <br />
           <Table columns={columns} data={item} />
         </div>
-
-        <div className="w-50 h-50">
+        <div className="col-sm-6">
           <h2>Pie Chart</h2>
           <PieChart
             data={[

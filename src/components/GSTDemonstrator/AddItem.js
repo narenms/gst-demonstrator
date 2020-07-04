@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { addNewItem } from "./itemSlice";
 
 function AddItem() {
@@ -34,7 +34,12 @@ function AddItem() {
         // setData({ ...data, gstPrice: parseInt(data.price) + parseInt(result) });
         console.log(data);
         console.log("Calling dispatch");
-        dispatch(addNewItem({ ...data, gstPrice: parseInt(data.price) + parseInt(result) }));
+        dispatch(
+          addNewItem({
+            ...data,
+            gstPrice: parseInt(data.price) + parseInt(result),
+          })
+        );
         setData({ name: "", price: "", gstSlab: "5", gstPrice: "" });
       })
       .catch((error) => console.log("error", error));
@@ -45,56 +50,54 @@ function AddItem() {
   };
 
   return (
-    <div>
-      <div className="d-flex justify-content-center">
+    <div className="container">
+      <div>
+        <h2>Add a New Item</h2>
         <form>
-        <div className="form-row">
-          <h2>Add a New Item</h2>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label htmlFor="inputItemName">Name</label>
-            <input
-              type="string"
-              className="form-control"
-              id="inputItemName"
-              name="name"
-              placeholder="Name"
-              value={data.name}
-              onChange={handleChange}
-            />
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <label htmlFor="inputItemName">Name</label>
+              <input
+                type="string"
+                className="form-control"
+                id="inputItemName"
+                name="name"
+                placeholder="Name"
+                value={data.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group col-md-6">
+              <label htmlFor="inputItemPrice">Price</label>
+              <input
+                type="number"
+                className="form-control"
+                id="inputItemPrice"
+                name="price"
+                placeholder="Price"
+                value={data.price}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="inputItemPrice">Price</label>
-            <input
-              type="number"
+          <div className="form-group">
+            <label htmlFor="gstSlabControlSelect">Select GST Slab</label>
+            <select
               className="form-control"
-              id="inputItemPrice"
-              name="price"
-              placeholder="Price"
-              value={data.price}
+              id="gstSlabControlSelect"
+              name="gstSlab"
+              value={data.gstSlab}
               onChange={handleChange}
-            />
+            >
+              <option>5</option>
+              <option>12</option>
+              <option>18</option>
+              <option>28</option>
+            </select>
           </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="gstSlabControlSelect">Select GST Slab</label>
-          <select
-            className="form-control"
-            id="gstSlabControlSelect"
-            name="gstSlab"
-            value={data.gstSlab}
-            onChange={handleChange}
-          >
-            <option>5</option>
-            <option>12</option>
-            <option>18</option>
-            <option>28</option>
-          </select>
-        </div>
-        <button type="submit" className="btn btn-primary" onClick={onSubmit}>
-          Add Item
-        </button>
+          <button type="submit" className="btn btn-primary" onClick={onSubmit}>
+            Add Item
+          </button>
         </form>
       </div>
     </div>

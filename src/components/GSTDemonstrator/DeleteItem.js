@@ -41,11 +41,11 @@ function DeleteItem() {
         </div>
       </div> */}
 
-      <div className="container">
-        <div className="d-flex justify-content-center">
+      <div className="container-fluid">
+        <div>
+        <legend>Select an Item to erase from record</legend>
           <form>
-            <legend>Select an Item to erase from record</legend>
-            <table className="table">
+            <table className="table table-bordered">
               <thead>
                 <tr>
                   {columns.map((col, id) => (
@@ -77,43 +77,6 @@ function DeleteItem() {
           </form>
         </div>
       </div>
-
-      {/* <div className="container">
-        <div className="d-flex align-items-start flex-column">
-          <form>
-            <fieldset>
-              <div className="row">
-                <legend className="col-form-label col-sm-7">Select an Item to erase from record</legend>
-                <div className="col-sm-10">
-                  {items.map((item, id) => (
-                    <div className="form-check-input" key={id}>
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="gridItems"
-                        id={id}
-                        value={item.name}
-                        onChange={handleOptionChange}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor={id}
-                      >{`Name: ${item.name} Price: ${item.price}`}</label>
-                    </div>
-                  ))}
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  onClick={handleSubmit}
-                >
-                  Delete Item
-                </button>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div> */}
     </div>
   );
 }
