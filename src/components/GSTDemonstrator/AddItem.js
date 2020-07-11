@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addNewItem } from "./itemSlice";
+import { addItem } from "../../actions/items";
+import axios from "axios";
 
 function AddItem() {
   const dispatch = useDispatch();
@@ -18,35 +19,22 @@ function AddItem() {
   };
 
   const onSubmit = (e) => {
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    // Using fetch to make API call.
-    fetch(
-      `https://api.mathjs.org/v4/?expr=${data.price}%2A${data.gstSlab}%2F100`,
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(result);
-        // setData({ ...data, gstPrice: parseInt(data.price) + parseInt(result) });
-        console.log(data);
-        console.log("Calling dispatch");
+    e.preventDefault();
+    axios
+      .get(
+        `https://api.mathjs.org/v4/?expr=${data.price}%2A${data.gstSlab}%2F100`
+      )
+      .then((result) =>
         dispatch(
-          addNewItem({
+          addItem({
             ...data,
-            gstPrice: parseInt(data.price) + parseInt(result),
+            gstPrice: parseFloat(data.price) + parseFloat(result.data),
           })
-        );
-        setData({ name: "", price: "", gstSlab: "5", gstPrice: "" });
-      })
-      .catch((error) => console.log("error", error));
-
+        )
+      );
     console.log(data);
 
-    e.preventDefault();
+    setData({ name: "", price: "", gstSlab: "5", gstPrice: "" });
   };
 
   return (
@@ -103,5 +91,7 @@ function AddItem() {
     </div>
   );
 }
+
+// AddItem.propTypes = {};
 
 export default AddItem;

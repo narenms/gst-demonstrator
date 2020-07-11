@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteItem, selectItem } from "./itemSlice";
+import { getItems, deleteItem } from "../../actions/items";
 
 function DeleteItem() {
   const dispatch = useDispatch();
-  const items = useSelector(selectItem);
+  const items = useSelector((state) => state.items.items);
+
+  useEffect(() => {
+    console.log("LOL");
+    dispatch(getItems());
+  }, [dispatch]);
 
   // const [value, setValue] = React.useState("");
 
@@ -43,7 +48,7 @@ function DeleteItem() {
 
       <div className="container-fluid">
         <div>
-        <legend>Select an Item to erase from record</legend>
+          <legend>Select an Item to erase from record</legend>
           <form>
             <table className="table table-bordered">
               <thead>
@@ -63,7 +68,7 @@ function DeleteItem() {
                     <td>
                       <button
                         type="submit"
-                        value={item.name}
+                        value={item.id}
                         className="btn btn-primary"
                         onClick={handleSubmit}
                       >

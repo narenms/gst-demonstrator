@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
-import { useSelector } from "react-redux";
-import { selectItem } from "./itemSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { getItems } from "../../actions/items";
+// import { selectItem } from "./itemSlice";
 
 function DisplayItems() {
   const defaultLabelStyle = {
@@ -9,12 +10,18 @@ function DisplayItems() {
     fontFamily: "sans-serif",
   };
 
-  const item = useSelector(selectItem);
+  const item = useSelector((state) => state.items.items);
+  const dispatch = useDispatch();
 
-  const gst5 = item.filter((obj) => obj.gstSlab === "5").length;
-  const gst12 = item.filter((obj) => obj.gstSlab === "12").length;
-  const gst18 = item.filter((obj) => obj.gstSlab === "18").length;
-  const gst28 = item.filter((obj) => obj.gstSlab === "28").length;
+  useEffect(() => {
+    console.log("LOL");
+    dispatch(getItems());
+  }, [dispatch]);
+
+  const gst5 = item.filter((obj) => obj.gstSlab === 5).length;
+  const gst12 = item.filter((obj) => obj.gstSlab === 12).length;
+  const gst18 = item.filter((obj) => obj.gstSlab === 18).length;
+  const gst28 = item.filter((obj) => obj.gstSlab === 28).length;
 
   const columns = [
     { heading: "Name", property: "name" },
