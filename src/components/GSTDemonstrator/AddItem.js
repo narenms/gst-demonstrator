@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../actions/items";
-import axios from "axios";
 
 function AddItem() {
   const dispatch = useDispatch();
@@ -10,7 +9,7 @@ function AddItem() {
     name: "",
     price: "",
     gstSlab: "5",
-    gstPrice: "",
+    gstPrice: 0,
   });
 
   const handleChange = (e) => {
@@ -20,21 +19,8 @@ function AddItem() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios
-      .get(
-        `https://api.mathjs.org/v4/?expr=${data.price}%2A${data.gstSlab}%2F100`
-      )
-      .then((result) =>
-        dispatch(
-          addItem({
-            ...data,
-            gstPrice: parseFloat(data.price) + parseFloat(result.data),
-          })
-        )
-      );
-    console.log(data);
-
-    setData({ name: "", price: "", gstSlab: "5", gstPrice: "" });
+    dispatch(addItem(data));
+    setData({ name: "", price: "", gstSlab: "5", gstPrice: "0" });
   };
 
   return (
@@ -91,7 +77,5 @@ function AddItem() {
     </div>
   );
 }
-
-// AddItem.propTypes = {};
 
 export default AddItem;

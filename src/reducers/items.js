@@ -1,7 +1,7 @@
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from "../actions/types";
 
 const initialState = {
-  items: [{ name: "Pen", price: "100", gstSlab: "5", gstPrice: "105" }],
+  items: [],
 };
 
 const itemReducer = (state = initialState, action) => {

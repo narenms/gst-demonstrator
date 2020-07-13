@@ -4,7 +4,7 @@ import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from "./types";
 // GET ITEMS
 export const getItems = () => (dispatch, getState) => {
   axios
-    .get("http://localhost:8000/api/items/")
+    .get("http://localhost:8000/items/")
     .then((res) => {
       dispatch({ type: GET_ITEMS, payload: res.data });
     })
@@ -14,7 +14,7 @@ export const getItems = () => (dispatch, getState) => {
 // ADD ITEM
 export const addItem = (item) => (dispatch, getState) => {
   axios
-    .post("http://localhost:8000/api/items/", item)
+    .post("http://localhost:8000/items/", item)
     .then((res) => {
       dispatch({ type: ADD_ITEM, payload: res.data });
     })
@@ -24,7 +24,7 @@ export const addItem = (item) => (dispatch, getState) => {
 // DELETE ITEM
 export const deleteItem = (id) => (dispatch, getState) => {
   axios
-    .delete(`/api/items/${id}/`)
+    .delete(`http://localhost:8000/items/${id}`)
     .then((res) => {
       dispatch({ type: DELETE_ITEM, payload: id });
     })

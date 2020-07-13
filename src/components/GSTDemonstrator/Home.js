@@ -1,5 +1,9 @@
 import React from "react";
 
+// const divHeight = {
+//   height: "700px",
+// };
+
 function Home() {
   return (
     <>
@@ -24,6 +28,22 @@ function Home() {
               src={require("./images/Welcome.png")}
               alt="First slide"
             />
+            {/* <div
+              className="w-100 align-middle text-center bg-dark text-white"
+              // style={divHeight}
+            >
+              <div>
+                <h1>Welcome to GST - Demostrator!</h1>
+                <h3>
+                  GST Demonstrator is a demo app to add, view and delete items.
+                  <br />
+                  Compute price of item through math.js api.
+                  <br />
+                  This app has been an insipration for learning React, Redux,
+                  React-Routers, Bootstrap, and more...
+                </h3>
+              </div>
+            </div> */}
           </div>
           <div className="carousel-item">
             <img

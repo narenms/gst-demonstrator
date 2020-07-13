@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import { useSelector, useDispatch } from "react-redux";
 import { getItems } from "../../actions/items";
-// import { selectItem } from "./itemSlice";
 
 function DisplayItems() {
   const defaultLabelStyle = {

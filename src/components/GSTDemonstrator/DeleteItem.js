@@ -4,14 +4,13 @@ import { getItems, deleteItem } from "../../actions/items";
 
 function DeleteItem() {
   const dispatch = useDispatch();
+
   const items = useSelector((state) => state.items.items);
 
   useEffect(() => {
-    console.log("LOL");
+    console.log("useEffect()");
     dispatch(getItems());
   }, [dispatch]);
-
-  // const [value, setValue] = React.useState("");
 
   const columns = [
     { heading: "Name", property: "name" },
@@ -21,31 +20,15 @@ function DeleteItem() {
     { heading: "", property: "button" },
   ];
 
-  // const handleOptionChange = (e) => {
-  //   setValue(e.target.value);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(deleteItem(value));
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(deleteItem(e.target.value));
+    dispatch(getItems());
+    console.log("calling getItems()");
   };
 
   return (
     <div>
-      {/* <div className="container">
-        <div className="d-flex justify-content-center">
-          <div className="d-flex align-items-start flex-column">
-            <h2>List of Items</h2> <br />
-            <Table columns={columns} data={item} />
-          </div>
-        </div>
-      </div> */}
-
       <div className="container-fluid">
         <div>
           <legend>Select an Item to erase from record</legend>
