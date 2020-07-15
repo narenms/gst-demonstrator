@@ -1,9 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
-// import counterReducer from '../features/counter/counterSlice';
-import itemReducer from '../components/GSTDemonstrator/itemSlice';
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "../reducers";
 
-export default configureStore({
-  reducer: {
-    item: itemReducer,
-  },
-});
+const initialState = {};
+
+const middleware = [thunk];
+
+const store = createStore(
+  rootReducer,
+  initialState,
+  applyMiddleware(...middleware)
+);
+
+export default store;
